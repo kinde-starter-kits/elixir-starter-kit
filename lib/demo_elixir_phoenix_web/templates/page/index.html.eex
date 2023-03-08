@@ -1,0 +1,24 @@
+<section class="phx-hero">
+  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
+  <p>Peace-of-mind from prototype to production</p>
+</section>
+
+<section class="row">
+  <article class="column">
+    <h2>Available Routes</h2>
+    <ul>
+      <li><a href="/log-in">Login Client Credentials</a></li>
+      <li><a href="/claims">Claims</a></li>
+      <li><a href="/claims-pkce">Claims PKCE</a></li>
+      <li><a href="/permissions">Permissions</a></li>
+      <li><a href="/user">User details</a></li>
+      <li><a href="/organization">Organization</a></li>
+      <li><a href="/token">All Tokens</a></li>
+      <li><a href="/pkce-reg">PKCE Login</a></li>
+    </ul>
+  </article>
+</section>
+
+<div>
+  Response: <code><%= inspect @response %></code>
+</div>
