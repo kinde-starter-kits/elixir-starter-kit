@@ -11,7 +11,7 @@ Update :kinde_management_api config in `config/config.exs`.
 
 Execute following in your terminal to run:
 
-```
+```ssh
 mix deps.get
 mix phx.server
 ```
