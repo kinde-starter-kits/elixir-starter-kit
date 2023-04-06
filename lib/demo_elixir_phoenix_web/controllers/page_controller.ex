@@ -1,7 +1,6 @@
 defmodule DemoElixirPhoenixWeb.PageController do
   use DemoElixirPhoenixWeb, :controller
   alias KindeClientSDK
-  alias Plug.Conn
 
   def index(conn, _params) do
     grant_type = :client_credentials
@@ -21,20 +20,14 @@ defmodule DemoElixirPhoenixWeb.PageController do
 
     conn = KindeClientSDK.login(conn, client)
 
-    pid = Conn.get_session(conn, :kinde_cache_pid)
-    # IO.inspect(conn, label: "conn")
+    response = KindeClientSDK.get_all_data(conn)
+    IO.inspect(response.token, label: "kinde_token")
 
-    [kinde_token: response] =
-      GenServer.call(pid, {:get_kinde_data, :kinde_token})
-      |> IO.inspect(label: "kinde_token")
-
-    render(conn, "index.html", response: response)
+    render(conn, "index.html", response: response.token)
   end
 
   def callback(conn, _params) do
-    pid = Conn.get_session(conn, :kinde_cache_pid)
-
-    GenServer.call(pid, {:get_kinde_data, :kinde_client})
+    KindeClientSDK.get_kinde_client(conn)
     |> IO.inspect(label: "kinde_client BEFORE")
 
     {conn, client} = KindeClientSDK.get_token(conn)
@@ -81,38 +74,23 @@ defmodule DemoElixirPhoenixWeb.PageController do
   end
 
   def logout(conn, _params) do
-    pid = Conn.get_session(conn, :kinde_cache_pid)
-
-    GenServer.call(pid, {:get_kinde_data, :kinde_client})
+    KindeClientSDK.get_kinde_client(conn)
     |> IO.inspect(label: "kinde_client AFTER LOGOUT")
 
     render(conn, "index.html", response: nil)
   end
 
   def tokens(conn, _) do
-    pid = Conn.get_session(conn, :kinde_cache_pid)
+    res = KindeClientSDK.get_all_data(conn)
 
-    res1 =
-      GenServer.call(pid, {:get_kinde_data, :kinde_login_time_stamp})
-      |> IO.inspect(label: "kinde_login_time_stamp")
+    IO.inspect(res.login_time_stamp, label: "kinde_login_time_stamp")
+    IO.inspect(res.access_token, label: "kinde_access_token")
+    IO.inspect(res.id_token, label: "kinde_id_token")
+    IO.inspect(res.expires_in, label: "kinde_expires_in")
+    IO.inspect(res.token, label: "kinde_token")
+    IO.inspect(res.user, label: "kinde_user")
 
-    res2 =
-      GenServer.call(pid, {:get_kinde_data, :kinde_access_token})
-      |> IO.inspect(label: "kinde_access_token")
-
-    res3 =
-      GenServer.call(pid, {:get_kinde_data, :kinde_id_token})
-      |> IO.inspect(label: "kinde_id_token")
-
-    res4 =
-      GenServer.call(pid, {:get_kinde_data, :kinde_expires_in})
-      |> IO.inspect(label: "kinde_expires_in")
-
-    res5 =
-      GenServer.call(pid, {:get_kinde_data, :kinde_token}) |> IO.inspect(label: "kinde_token")
-
-    res6 = GenServer.call(pid, {:get_kinde_data, :kinde_user}) |> IO.inspect(label: "kinde_user")
-    render(conn, "index.html", response: {res1, res2, res3, res4, res5, res6})
+    render(conn, "index.html", response: res)
   end
 
   def pkce_reg(conn, _) do
@@ -133,10 +111,8 @@ defmodule DemoElixirPhoenixWeb.PageController do
 
     conn = KindeClientSDK.login(conn, client)
 
-    pid = Conn.get_session(conn, :kinde_cache_pid)
-
-    GenServer.call(pid, {:get_kinde_data, :kinde_oauth_code_verifier})
-    |> IO.inspect(label: "kinde_oauth_code_verifier BEFORE")
+    res = KindeClientSDK.get_all_data(conn)
+    IO.inspect(res.oauth_code_verifier, label: "kinde_oauth_code_verifier BEFORE")
 
     render(conn, "index.html", response: nil)
   end
@@ -144,37 +120,23 @@ defmodule DemoElixirPhoenixWeb.PageController do
   def pkce_callack(conn, _) do
     IO.inspect(conn, label: "pkce_callback")
 
-    pid = Conn.get_session(conn, :kinde_cache_pid)
-
-    GenServer.call(pid, {:get_kinde_data, :kinde_client})
+    KindeClientSDK.get_kinde_client(conn)
     |> IO.inspect(label: "kinde_client BEFORE")
 
     {conn, client} = KindeClientSDK.get_token(conn)
 
     IO.inspect(client, label: "kinde_client AFTER")
 
-    res1 =
-      GenServer.call(pid, {:get_kinde_data, :kinde_login_time_stamp})
-      |> IO.inspect(label: "kinde_login_time_stamp")
+    res = KindeClientSDK.get_all_data(conn)
 
-    res2 =
-      GenServer.call(pid, {:get_kinde_data, :kinde_access_token})
-      |> IO.inspect(label: "kinde_access_token")
+    IO.inspect(res.login_time_stamp, label: "kinde_login_time_stamp")
+    IO.inspect(res.access_token, label: "kinde_access_token")
+    IO.inspect(res.id_token, label: "kinde_id_token")
+    IO.inspect(res.expires_in, label: "kinde_expires_in")
+    IO.inspect(res.token, label: "kinde_token")
+    IO.inspect(res.user, label: "kinde_user")
 
-    res3 =
-      GenServer.call(pid, {:get_kinde_data, :kinde_id_token})
-      |> IO.inspect(label: "kinde_id_token")
-
-    res4 =
-      GenServer.call(pid, {:get_kinde_data, :kinde_expires_in})
-      |> IO.inspect(label: "kinde_expires_in")
-
-    res5 =
-      GenServer.call(pid, {:get_kinde_data, :kinde_token}) |> IO.inspect(label: "kinde_token")
-
-    res6 = GenServer.call(pid, {:get_kinde_data, :kinde_user}) |> IO.inspect(label: "kinde_user")
-
-    render(conn, "index.html", response: {res1, res2, res3, res4, res5, res6})
+    render(conn, "index.html", response: res)
   end
 
   def start(conn, _) do
