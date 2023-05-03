@@ -8,12 +8,12 @@ defmodule DemoElixirPhoenixWeb.PageController do
     {conn, client} =
       KindeClientSDK.init(
         conn,
-        Application.get_env(:kinde_management_api, :domain),
-        Application.get_env(:kinde_management_api, :redirect_url),
-        Application.get_env(:kinde_management_api, :backend_client_id),
-        Application.get_env(:kinde_management_api, :client_secret),
+        Application.get_env(:kinde_sdk, :domain),
+        Application.get_env(:kinde_sdk, :redirect_url),
+        Application.get_env(:kinde_sdk, :backend_client_id),
+        Application.get_env(:kinde_sdk, :client_secret),
         grant_type,
-        Application.get_env(:kinde_management_api, :logout_redirect_url)
+        Application.get_env(:kinde_sdk, :logout_redirect_url)
       )
 
     IO.inspect(client, label: "Client after creation ====>")
@@ -99,12 +99,12 @@ defmodule DemoElixirPhoenixWeb.PageController do
     {conn, client} =
       KindeClientSDK.init(
         conn,
-        Application.get_env(:kinde_management_api, :domain),
-        Application.get_env(:kinde_management_api, :pkce_callback_url),
-        Application.get_env(:kinde_management_api, :frontend_client_id),
-        Application.get_env(:kinde_management_api, :client_secret),
+        Application.get_env(:kinde_sdk, :domain),
+        Application.get_env(:kinde_sdk, :pkce_callback_url),
+        Application.get_env(:kinde_sdk, :frontend_client_id),
+        Application.get_env(:kinde_sdk, :client_secret),
         grant_type,
-        Application.get_env(:kinde_management_api, :pkce_logout_url)
+        Application.get_env(:kinde_sdk, :pkce_logout_url)
       )
 
     IO.inspect(client, label: "Client after creation ====>")

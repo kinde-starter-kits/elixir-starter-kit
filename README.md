@@ -4,10 +4,10 @@ Install erlang and elixir.
 
 Update the deps, update path to the SDK in `mix.exs`
 ```elixir
-{:kinde_management_api, path: "/path/to/kinde-elixir-sdk"}
+{:kinde_sdk, path: "/path/to/kinde-elixir-sdk"}
 ```
 
-Update :kinde_management_api config in `config/config.exs`.
+Update :kinde_sdk config in `config/config.exs`.
 
 Execute following in your terminal to run:
 
