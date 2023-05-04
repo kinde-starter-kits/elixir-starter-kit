@@ -19,7 +19,7 @@ config :demo_elixir_phoenix, DemoElixirPhoenixWeb.Endpoint,
   live_view: [signing_salt: "DWxOrTvj"]
 
 # Kinde SDK
-config :kinde_management_api,
+config :kinde_sdk,
   backend_client_id: System.get_env("KINDE_BACKEND_CLIENT_ID"),
   frontend_client_id: System.get_env("KINDE_FRONTEND_CLIENT_ID"),
   client_secret: System.get_env("KINDE_CLIENT_SECRET"),

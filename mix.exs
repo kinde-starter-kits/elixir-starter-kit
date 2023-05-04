@@ -20,7 +20,7 @@ defmodule DemoElixirPhoenix.MixProject do
   def application do
     [
       mod: {DemoElixirPhoenix.Application, []},
-      extra_applications: [:logger, :runtime_tools, :kinde_management_api]
+      extra_applications: [:logger, :runtime_tools, :kinde_sdk]
     ]
   end
 
@@ -46,7 +46,7 @@ defmodule DemoElixirPhoenix.MixProject do
       {:jason, "~> 1.3"},
       {:plug_cowboy, "~> 2.0"},
       {:plug, "~> 1.13"},
-      {:kinde_management_api, path: "/home/starter-kit/public_html/kinde-elixir-sdk"}
+      {:kinde_sdk, path: "/home/starter-kit/public_html/kinde-elixir-sdk"}
     ]
   end
 
