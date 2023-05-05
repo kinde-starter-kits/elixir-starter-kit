@@ -46,7 +46,7 @@ defmodule DemoElixirPhoenix.MixProject do
       {:jason, "~> 1.3"},
       {:plug_cowboy, "~> 2.0"},
       {:plug, "~> 1.13"},
-      {:kinde_sdk, path: "/home/starter-kit/public_html/kinde-elixir-sdk"}
+      {:kinde_sdk, "~> 1.0"}
     ]
   end
 
