@@ -9,6 +9,8 @@
     <ul>
       <li><a href="/log-in">Login Client Credentials</a></li>
       <li><a href="/claims">Claims</a></li>
+      <li><a href="/get_claim">Get Claim From Access Token</a></li>
+      <li><a href="/get_claim_from_id_token">Get Claim From ID Token</a></li>
       <li><a href="/claims-pkce">Claims PKCE</a></li>
       <li><a href="/permissions">Permissions</a></li>
       <li><a href="/user">User details</a></li>

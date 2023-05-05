@@ -22,6 +22,8 @@ defmodule DemoElixirPhoenixWeb.Router do
     get "/log-out", PageController, :log_out
     get "/logout", PageController, :logout
     get "/claims", PageController, :get_claims
+    get "/get_claim", PageController, :get_claim
+    get "/get_claim_from_id_token", PageController, :get_claim_from_id_token
     get "/claims-pkce", PageController, :get_claims_pkce
     get "/permissions", PageController, :get_permissions
     get "/user", PageController, :get_user

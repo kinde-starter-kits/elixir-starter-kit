@@ -43,6 +43,19 @@ defmodule DemoElixirPhoenixWeb.PageController do
     render(conn, "index.html", response: response)
   end
 
+  def get_claim(conn, _) do
+    KindeClientSDK.authenticated?(conn) |> IO.inspect(label: "authenticated?")
+    response = KindeClientSDK.get_claim(conn, "iss") |> IO.inspect(label: "claim object from access_token") ## you can change the "iss" to any other claim-object-key
+    render(conn, "index.html", response: response)
+  end
+
+  # Tip: For this action to work, remember to do the PKCE login first
+  def get_claim_from_id_token(conn, _) do
+    KindeClientSDK.authenticated?(conn) |> IO.inspect(label: "authenticated?")
+    response = KindeClientSDK.get_claim(conn, "iss", :id_token) |> IO.inspect(label: "claim object from id_token") ## you can change the "iss" to any other claim-object-key
+    render(conn, "index.html", response: response)
+  end
+
   def get_claims_pkce(conn, _) do
     KindeClientSDK.authenticated?(conn) |> IO.inspect(label: "authenticated?")
     res1 = KindeClientSDK.get_claims(conn) |> IO.inspect(label: "claims from access_token")
