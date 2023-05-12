@@ -103,8 +103,8 @@ defmodule DemoElixirPhoenix.Account do
   end
 
   alias KindeClientSdk
-  def kinde_go() do
 
+  def kinde_go() do
     domain = "https://elixirsdk.kinde.com"
     redirect_url = "http://localhost:4000/callback"
     client_id = "48e3345e636c4e33a2fd44413d252138"
@@ -112,7 +112,16 @@ defmodule DemoElixirPhoenix.Account do
     grant_type = :client_credentials
     logout_redirect_url = "http://localhost:4000/logout"
 
-    client = KindeClientSdk.init(domain, redirect_url, client_id, client_secret, grant_type, logout_redirect_url)
+    client =
+      KindeClientSdk.init(
+        domain,
+        redirect_url,
+        client_id,
+        client_secret,
+        grant_type,
+        logout_redirect_url
+      )
+
     KindeClientSdk.login()
   end
 end

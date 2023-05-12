@@ -2,35 +2,35 @@ defmodule DemoElixirPhoenixWeb.Router do
   use DemoElixirPhoenixWeb, :router
 
   pipeline :browser do
-    plug :accepts, ["html"]
-    plug :fetch_session
-    plug :fetch_flash
-    plug :protect_from_forgery
-    plug :put_secure_browser_headers
+    plug(:accepts, ["html"])
+    plug(:fetch_session)
+    plug(:fetch_flash)
+    plug(:protect_from_forgery)
+    plug(:put_secure_browser_headers)
   end
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug(:accepts, ["json"])
   end
 
   scope "/", DemoElixirPhoenixWeb do
-    pipe_through :browser
+    pipe_through(:browser)
 
-    get "/", PageController, :start
-    get "/log-in", PageController, :index
-    get "/callback", PageController, :callback
-    get "/log-out", PageController, :log_out
-    get "/logout", PageController, :logout
-    get "/claims", PageController, :get_claims
-    get "/get_claim", PageController, :get_claim
-    get "/get_claim_from_id_token", PageController, :get_claim_from_id_token
-    get "/claims-pkce", PageController, :get_claims_pkce
-    get "/permissions", PageController, :get_permissions
-    get "/user", PageController, :get_user
-    get "/organization", PageController, :get_user_organizations
-    get "/token", PageController, :tokens
-    get "/pkce-reg", PageController, :pkce_reg
-    get "/pkce-callback", PageController, :pkce_callack
+    get("/", PageController, :start)
+    get("/log-in", PageController, :index)
+    get("/callback", PageController, :callback)
+    get("/log-out", PageController, :log_out)
+    get("/logout", PageController, :logout)
+    get("/claims", PageController, :get_claims)
+    get("/get_claim", PageController, :get_claim)
+    get("/get_claim_from_id_token", PageController, :get_claim_from_id_token)
+    get("/claims-pkce", PageController, :get_claims_pkce)
+    get("/permissions", PageController, :get_permissions)
+    get("/user", PageController, :get_user)
+    get("/organization", PageController, :get_user_organizations)
+    get("/token", PageController, :tokens)
+    get("/pkce-reg", PageController, :pkce_reg)
+    get("/pkce-callback", PageController, :pkce_callack)
   end
 
   # Other scopes may use custom stacks.
@@ -49,7 +49,7 @@ defmodule DemoElixirPhoenixWeb.Router do
     import Phoenix.LiveDashboard.Router
 
     scope "/" do
-      pipe_through :browser
+      pipe_through(:browser)
     end
   end
 end
