@@ -4,6 +4,10 @@ defmodule DemoElixirPhoenix.Application do
   @moduledoc false
 
   use Application
+  import Envar
+
+  # will load .env file to load environment variables
+  Envar.load(".env")
 
   def start(_type, _args) do
     children = [

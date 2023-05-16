@@ -4,7 +4,12 @@ Install erlang and elixir.
 
 Update :kinde_sdk config in `config/config.exs`.
 
-Execute following in your terminal to run:
+Within assets directory run
+
+```ssh
+npm install
+```
+Then execute following in your terminal to run:
 
 ```ssh
 mix deps.get
