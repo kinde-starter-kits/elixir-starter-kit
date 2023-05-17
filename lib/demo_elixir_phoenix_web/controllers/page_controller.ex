@@ -1,7 +1,6 @@
 defmodule DemoElixirPhoenixWeb.PageController do
   use DemoElixirPhoenixWeb, :controller
   alias KindeClientSDK
-  alias KindeSdk.Sdk.FeatureFlagsHelper
 
   def index(conn, _params) do
     grant_type = :client_credentials
@@ -125,11 +124,9 @@ defmodule DemoElixirPhoenixWeb.PageController do
   end
 
   def helper_methods(conn, _) do
-    claims = KindeClientSDK.get_claims(conn)
-    feature_flags = claims["feature_flags"]
     ## Replace the second-argument i.e. code, to what you set in feature-flags
-    flag_detail1 = FeatureFlagsHelper.get_flag(feature_flags, "theme")
-    flag_detail2 = FeatureFlagsHelper.get_flag(feature_flags, "is_dark_mode", "false", "s")
+    flag_detail1 = KindeClientSDK.get_flag(conn, "theme")
+    flag_detail2 = KindeClientSDK.get_flag(conn, "is_dark_mode", "false", "s")
     render(conn, "index.html", response: [flag_detail1] ++ [flag_detail2])
   end
 end
