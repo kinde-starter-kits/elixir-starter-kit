@@ -31,6 +31,8 @@ defmodule DemoElixirPhoenixWeb.Router do
     get("/token", PageController, :tokens)
     get("/pkce-reg", PageController, :pkce_reg)
     get("/pkce-callback", PageController, :pkce_callack)
+    get("/token-endpoint", PageController, :token_endpoint)
+    get("/helper_methods", PageController, :helper_methods)
   end
 
   # Other scopes may use custom stacks.
