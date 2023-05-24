@@ -46,7 +46,8 @@ defmodule DemoElixirPhoenix.MixProject do
       {:jason, "~> 1.3"},
       {:plug_cowboy, "~> 2.0"},
       {:plug, "~> 1.13"},
-      {:kinde_sdk, "~> 1.0"}
+      {:kinde_sdk, "~> 1.0"},
+      {:envar, "~> 1.1.0"}
     ]
   end
 

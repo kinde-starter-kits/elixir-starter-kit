@@ -1,4 +1,4 @@
-use Mix.Config
+import Config
 
 # Configure your database
 config :demo_elixir_phoenix, DemoElixirPhoenix.Repo,
@@ -25,7 +25,7 @@ config :demo_elixir_phoenix, DemoElixirPhoenixWeb.Endpoint,
       "node_modules/webpack/bin/webpack.js",
       "--mode",
       "development",
-      "--watch-stdin",
+      "--watch",
       cd: Path.expand("../assets", __DIR__)
     ]
   ]
