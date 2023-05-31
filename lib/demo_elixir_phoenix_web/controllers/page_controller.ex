@@ -8,12 +8,12 @@ defmodule DemoElixirPhoenixWeb.PageController do
     {conn, client} =
       KindeClientSDK.init(
         conn,
-        Application.get_env(:kinde_sdk, :domain),
-        Application.get_env(:kinde_sdk, :redirect_url),
-        Application.get_env(:kinde_sdk, :backend_client_id),
-        Application.get_env(:kinde_sdk, :client_secret),
+        Application.get_env(:kinde_sdk, :domain) |> String.replace("\"", ""),
+        Application.get_env(:kinde_sdk, :redirect_url) |> String.replace("\"", ""),
+        Application.get_env(:kinde_sdk, :backend_client_id) |> String.replace("\"", ""),
+        Application.get_env(:kinde_sdk, :client_secret) |> String.replace("\"", ""),
         grant_type,
-        Application.get_env(:kinde_sdk, :logout_redirect_url)
+        Application.get_env(:kinde_sdk, :logout_redirect_url) |> String.replace("\"", "")
       )
 
     conn = KindeClientSDK.login(conn, client)
@@ -92,12 +92,12 @@ defmodule DemoElixirPhoenixWeb.PageController do
     {conn, client} =
       KindeClientSDK.init(
         conn,
-        Application.get_env(:kinde_sdk, :domain),
-        Application.get_env(:kinde_sdk, :pkce_callback_url),
-        Application.get_env(:kinde_sdk, :frontend_client_id),
-        Application.get_env(:kinde_sdk, :client_secret),
+        Application.get_env(:kinde_sdk, :domain) |> String.replace("\"", ""),
+        Application.get_env(:kinde_sdk, :pkce_callback_url) |> String.replace("\"", ""),
+        Application.get_env(:kinde_sdk, :frontend_client_id) |> String.replace("\"", ""),
+        Application.get_env(:kinde_sdk, :client_secret) |> String.replace("\"", ""),
         grant_type,
-        Application.get_env(:kinde_sdk, :pkce_logout_url)
+        Application.get_env(:kinde_sdk, :pkce_logout_url) |> String.replace("\"", "")
       )
 
     conn = KindeClientSDK.login(conn, client)
