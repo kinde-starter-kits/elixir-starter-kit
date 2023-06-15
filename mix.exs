@@ -46,7 +46,7 @@ defmodule DemoElixirPhoenix.MixProject do
       {:jason, "~> 1.3"},
       {:plug_cowboy, "~> 2.0"},
       {:plug, "~> 1.13"},
-      {:kinde_sdk, "~> 1.0"},
+      {:kinde_sdk, "~> 1.2.0"},
       {:envar, "~> 1.1.0"}
     ]
   end
@@ -62,7 +62,12 @@ defmodule DemoElixirPhoenix.MixProject do
       setup: ["deps.get", "ecto.setup", "cmd npm install --prefix assets"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
+      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
+      "phx.server": [&clean_project/1, "phx.server"]
     ]
+  end
+
+  defp clean_project(_) do
+    System.cmd("rm", ["-rf", "_build"])
   end
 end

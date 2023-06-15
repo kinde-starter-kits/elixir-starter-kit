@@ -3,8 +3,8 @@ defmodule DemoElixirPhoenix.Account.User do
   import Ecto.Changeset
 
   schema "users" do
-    field :email, :string
-    field :name, :string
+    field(:email, :string)
+    field(:name, :string)
 
     timestamps()
   end

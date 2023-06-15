@@ -1,6 +1,7 @@
 # Ignore dot files by default, then accept specific files and patterns.
 .*
 !.gitignore
+!.formatter.exs
 !.*.gitignore
 !.*[-_.]example
 !.*[-_.]example[-_.]*
