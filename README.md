@@ -1,4 +1,4 @@
-# Kinde Starter Kit - ELixir
+# Kinde Starter Kit - Elixir
 This is an Elixir template with [KindeAuth](https://kinde.com/docs/developer-tools/elixir-sdk/).
 
 ## Register an account on Kinde
@@ -38,7 +38,7 @@ KINDE_FRONTEND_CLIENT_ID=<your_frontend_client_id>
 KINDE_LOGOUT_REDIRECT_URL=<your_redirect_url>
 ```
 ## Set your Callback and Logout URLs
-Your user will be redirected to Kinde to authenticate. After they have logged in or registered they will be redirected back to your ELixir application.
+Your user will be redirected to Kinde to authenticate. After they have logged in or registered they will be redirected back to your Elixir application.
 
 You need to specify in Kinde which url you would like your user to be redirected to in order to authenticate your app.
 
