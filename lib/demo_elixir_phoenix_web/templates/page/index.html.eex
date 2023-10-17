@@ -1,29 +1,13 @@
-<section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-  <p>Peace-of-mind from prototype to production</p>
-</section>
 
-<section class="row">
-  <article class="column">
-    <h2>Available Routes</h2>
-    <p><b>Tip:</b> Some routes are only accessible after pkce-login</p>
-    <ul>
-      <li><a href="/log-in">Login Client Credentials</a></li>
-      <li><a href="/claims">Claims</a></li>
-      <li><a href="/get_claim">Get Claim From Access Token</a></li>
-      <li><a href="/get_claim_from_id_token">Get Claim From ID Token</a>  <i>(remember to do pkce-login first)</i></li>
-      <li><a href="/claims-pkce">Claims PKCE</a>  <i>(remember to do pkce-login first)</i></li>
-      <li><a href="/permissions">Permissions</a></li>
-      <li><a href="/user">User details</a></li>
-      <li><a href="/organization">Organization</a>  <i>(remember to do pkce-login first)</i></li>
-      <li><a href="/token">All Tokens</a></li>
-      <li><a href="/pkce-reg">PKCE Login</a></li>
-      <li><a href="/token-endpoint">Call /token endpoint</a>  <i>(remember to do pkce-login first)</i></li>
-      <li><a href="/helper_methods">Helper Methods</a>  <i>(remember to do pkce-login first)</i></li>
-    </ul>
-  </article>
-</section>
+<div class="container">
+  <div class="card hero">
+    <p class="text-display-1 hero-title">
+      Let’s start authenticating <br /> with KindeAuth
+    </p>
+    <p class="text-body-1 hero-tagline">Configure your app</p>
 
-<div>
-  Response: <code><%= inspect @response %></code>
+    <a href="https://kinde.com/docs/developer-tools/elixir-sdk/" target="_blank" rel="noreferrer" class="btn btn-light btn-big">
+      Go to docs
+    </a>
+  </div>
 </div>

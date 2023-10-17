@@ -4,27 +4,60 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>DemoElixirPhoenix · Phoenix Framework</title>
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
   </head>
   <body>
     <header>
-      <section class="container">
-        <nav role="navigation">
-          <ul>
-            <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-              <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
-            <% end %>
-          </ul>
-        </nav>
-        <a href="https://phoenixframework.org/" class="phx-logo">
+      <nav class="nav container">
+        <h1 class="text-display-3">KindeAuth</h1>
+        <%= if !KindeClientSDK.authenticated?(@conn) do %>
+          <div>
+            <a class="btn btn-ghost sign-in-btn" href="/pkce-reg">Sign in</a>
+            <a class="btn btn-dark" href="/signup" >Sign up</a>
+          </div>
+        <%= else %>
+          <div>
+            <div class="profile-blob">
+              <%= if @user.picture do %> 
+                <img
+                  class="avatar"
+                  src="<%= @user.picture %>"
+                  alt="user profile avatar"
+                  referrerPolicy="no-referrer"
+                />
 
-        </a>
-      </section>
+              <%= else %>
+                    <div class="avatar">
+                      <%= @user.given_name && String.first(@user.given_name)%><%= @user.family_name && String.first(@user.family_name) %>
+                    </div>
+              <% end %>
+              <div>
+                <p class="text-heading-2">
+                  <%= @user && @user.given_name %> <%= @user && @user.family_name%>
+                </p>
+                <a class="text-subtle" href="/log-out">Log out</a>
+              </div>
+            
+          </div>
+        <%= end %>
+      </nav>
     </header>
-    <main role="main" class="container">
+    <main role="main">
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
       <%= @inner_content %>
     </main>
+    <footer class="footer">
+      <div class="container">
+        <strong class="text-heading-2">KindeAuth</strong>
+        <p class="footer-tagline text-body-3">
+          Visit our
+          <a class="link" href="https://kinde.com/docs" target="_blank">
+            help center
+          </a>
+        </p>
+        <small class="text-subtle">© 2023 KindeAuth, Inc. All rights reserved</small>
+      </div>
+    </footer>
   </body>
 </html>
