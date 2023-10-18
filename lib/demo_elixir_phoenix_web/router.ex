@@ -34,7 +34,7 @@ defmodule DemoElixirPhoenixWeb.Router do
     get("/pkce-callback", PageController, :pkce_callack)
     get("/token-endpoint", PageController, :token_endpoint)
     get("/helper_methods", PageController, :helper_methods)
-    get("*path", NotFoundController, :not_found)
+    get("/*path", PageController, :start)
   end
 
   # Other scopes may use custom stacks.

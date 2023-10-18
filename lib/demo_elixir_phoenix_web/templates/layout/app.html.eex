@@ -12,10 +12,10 @@
         <h1 class="text-display-3">KindeAuth</h1>
         <%= if !KindeClientSDK.authenticated?(@conn) do %>
           <div>
-            <a class="btn btn-ghost sign-in-btn" href="/pkce-reg">Sign in</a>
-            <a class="btn btn-dark" href="/signup" >Sign up</a>
+            <a class="btn btn-ghost sign-in-btn" href="<%= Routes.page_path(@conn, :pkce_reg) %>">Sign in</a>
+            <a class="btn btn-dark" href="<%= Routes.page_path(@conn, :register) %>" >Sign up</a>
           </div>
-        <%= else %>
+        <% else %>
           <div>
             <div class="profile-blob">
               <%= if @user.picture do %> 
@@ -26,7 +26,7 @@
                   referrerPolicy="no-referrer"
                 />
 
-              <%= else %>
+              <% else %>
                     <div class="avatar">
                       <%= @user.given_name && String.first(@user.given_name)%><%= @user.family_name && String.first(@user.family_name) %>
                     </div>
@@ -35,11 +35,11 @@
                 <p class="text-heading-2">
                   <%= @user && @user.given_name %> <%= @user && @user.family_name%>
                 </p>
-                <a class="text-subtle" href="/log-out">Log out</a>
+                <a class="text-subtle" href="<%= Routes.page_path(@conn, :log_out) %>">Log out</a>
               </div>
             
           </div>
-        <%= end %>
+        <% end %>
       </nav>
     </header>
     <main role="main">
