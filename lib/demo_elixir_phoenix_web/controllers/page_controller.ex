@@ -3,7 +3,8 @@ defmodule DemoElixirPhoenixWeb.PageController do
   alias KindeClientSDK
 
   def index(conn, _params) do
-    grant_type = :client_credentials
+#    grant_type = :client_credentials
+    grant_type = :authorization_code
 
     {conn, client} =
       KindeClientSDK.init(
@@ -18,7 +19,6 @@ defmodule DemoElixirPhoenixWeb.PageController do
 
     conn = KindeClientSDK.login(conn, client)
     response = KindeClientSDK.get_all_data(conn)
-
     render(conn, "index.html", response: response)
   end
 
@@ -34,102 +34,66 @@ defmodule DemoElixirPhoenixWeb.PageController do
   end
 
   def get_claims(conn, _) do
-    if KindeClientSDK.authenticated?(conn) do
-      KindeClientSDK.get_kinde_client(conn)
-      {conn, _client} = KindeClientSDK.get_token(conn)
-      response = KindeClientSDK.get_claim(conn, "iss")
-      render(conn, "callback.html", response: response)
-    else
-      render(conn, "index.html", response: nil)
-    end
+    KindeClientSDK.get_kinde_client(conn)
+    {conn, _client} = KindeClientSDK.get_token(conn)
+    response = KindeClientSDK.get_claim(conn, "iss")
+    user = KindeClientSDK.get_user_detail(conn)
+    render(conn, "callback.html", response: response, user: user)
   end
 
   def get_claim(conn, _) do
-    if KindeClientSDK.authenticated?(conn) do
-      KindeClientSDK.get_kinde_client(conn)
-      {conn, _client} = KindeClientSDK.get_token(conn)
-      response = KindeClientSDK.get_claim(conn, "iss")
-      render(conn, "callback.html", response: response)
-    else
-      render(conn, "index.html", response: nil)
-    end
+    KindeClientSDK.get_kinde_client(conn)
+    {conn, _client} = KindeClientSDK.get_token(conn)
+    response = KindeClientSDK.get_claim(conn, "iss")
+    user = KindeClientSDK.get_user_detail(conn)
+    render(conn, "callback.html", response: response, user: user)
   end
 
   # Tip: For this action to work, remember to do the PKCE login first
   def get_claim_from_id_token(conn, _) do
-    response = nil
-
-    if KindeClientSDK.authenticated?(conn) do
-      KindeClientSDK.get_kinde_client(conn)
-      {conn, _client} = KindeClientSDK.get_token(conn)
-      response = KindeClientSDK.get_claim(conn, "iss", :id_token)
-      render(conn, "callback.html", response: response)
-    else
-      render(conn, "index.html", response: response)
-    end
+    KindeClientSDK.get_kinde_client(conn)
+    {conn, _client} = KindeClientSDK.get_token(conn)
+    response = KindeClientSDK.get_claim(conn, "iss", :id_token)
+    user = KindeClientSDK.get_user_detail(conn)
+    render(conn, "callback.html", response: response, user: user)
   end
 
   def get_claims_pkce(conn, _) do
-    res1 = nil
-    res2 = nil
-
-    if KindeClientSDK.authenticated?(conn) do
-      KindeClientSDK.get_kinde_client(conn)
-      {conn, _client} = KindeClientSDK.get_token(conn)
-      res1 = KindeClientSDK.get_claims(conn)
-      res2 = KindeClientSDK.get_claims(conn, :id_token)
-      render(conn, "callback.html", response: [res1] ++ [res2])
-    else
-      render(conn, "index.html", response: [res1] ++ [res2])
-    end
+    KindeClientSDK.get_kinde_client(conn)
+    {conn, _client} = KindeClientSDK.get_token(conn)
+    res1 = KindeClientSDK.get_claims(conn)
+    res2 = KindeClientSDK.get_claims(conn, :id_token)
+    user = KindeClientSDK.get_user_detail(conn)
+    render(conn, "callback.html", response: ([res1] ++ [res2]), user: user)
   end
 
   def get_permissions(conn, _) do
-    response = nil
-
-    if KindeClientSDK.authenticated?(conn) do
-      KindeClientSDK.get_kinde_client(conn)
-      {conn, _client} = KindeClientSDK.get_token(conn)
-      response = KindeClientSDK.get_permissions(conn)
-      render(conn, "callback.html", response: response)
-    else
-      render(conn, "index.html", response: response)
-    end
+    KindeClientSDK.get_kinde_client(conn)
+    {conn, _client} = KindeClientSDK.get_token(conn)
+    response = KindeClientSDK.get_permissions(conn)
+    user = KindeClientSDK.get_user_detail(conn)
+    render(conn, "callback.html", response: response, user: user)
   end
 
   def get_user(conn, _) do
-    response = nil
-
-    if KindeClientSDK.authenticated?(conn) do
-      KindeClientSDK.get_kinde_client(conn)
-      {conn, _client} = KindeClientSDK.get_token(conn)
-      response = KindeClientSDK.get_user_detail(conn)
-      render(conn, "callback.html", response: response)
-    else
-      render(conn, "index.html", response: response)
-    end
+    KindeClientSDK.get_kinde_client(conn)
+    {conn, _client} = KindeClientSDK.get_token(conn)
+    response = KindeClientSDK.get_user_detail(conn)
+    user = KindeClientSDK.get_user_detail(conn)
+    render(conn, "callback.html", response: response, user: user)
   end
 
   def get_user_organizations(conn, _) do
-    response = nil
-
-    if KindeClientSDK.authenticated?(conn) do
-      KindeClientSDK.get_kinde_client(conn)
-      {conn, _client} = KindeClientSDK.get_token(conn)
-      response = KindeClientSDK.get_user_organizations(conn)
-      render(conn, "callback.html", response: response)
-    else
-      render(conn, "index.html", response: response)
-    end
+    KindeClientSDK.get_kinde_client(conn)
+    {conn, _client} = KindeClientSDK.get_token(conn)
+    response = KindeClientSDK.get_user_organizations(conn)
+    user = KindeClientSDK.get_user_detail(conn)
+    render(conn, "callback.html", response: response, user: user)
   end
 
   def log_out(conn, _params) do
-    if KindeClientSDK.authenticated?(conn) do
-      conn = KindeClientSDK.logout(conn)
-      render(conn, "index.html", response: nil)
-    else
-      render(conn, "callback.html")
-    end
+    conn = KindeClientSDK.logout(conn)
+    render(conn, "index.html", response: nil)
   end
 
   def logout(conn, _params) do
@@ -137,16 +101,11 @@ defmodule DemoElixirPhoenixWeb.PageController do
   end
 
   def tokens(conn, _) do
-    res = nil
-
-    if KindeClientSDK.authenticated?(conn) do
-      KindeClientSDK.get_kinde_client(conn)
-      {conn, _client} = KindeClientSDK.get_token(conn)
-      res = KindeClientSDK.get_all_data(conn)
-      render(conn, "callback.html", response: res)
-    else
-      render(conn, "index.html", response: res)
-    end
+    KindeClientSDK.get_kinde_client(conn)
+    {conn, _client} = KindeClientSDK.get_token(conn)
+    res = KindeClientSDK.get_all_data(conn)
+    user = KindeClientSDK.get_user_detail(conn)
+    render(conn, "callback.html", response: res, user: user)
   end
 
   def pkce_reg(conn, _) do
@@ -197,16 +156,11 @@ defmodule DemoElixirPhoenixWeb.PageController do
   end
 
   def token_endpoint(conn, _) do
-    res = nil
-
-    if KindeClientSDK.authenticated?(conn) do
-      KindeClientSDK.get_kinde_client(conn)
-      {conn, _client} = KindeClientSDK.get_token(conn)
-      res = KindeClientSDK.get_all_data(conn)
-      render(conn, "callback.html", response: res)
-    else
-      render(conn, "index.html", response: res)
-    end
+    KindeClientSDK.get_kinde_client(conn)
+    {conn, _client} = KindeClientSDK.get_token(conn)
+    res = KindeClientSDK.get_all_data(conn)
+    user = KindeClientSDK.get_user_detail(conn)
+    render(conn, "callback.html", response: res, user: user)
   end
 
   def start(conn, _) do
