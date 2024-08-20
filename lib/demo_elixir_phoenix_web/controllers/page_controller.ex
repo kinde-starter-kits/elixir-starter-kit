@@ -28,6 +28,9 @@ defmodule DemoElixirPhoenixWeb.PageController do
 
     {conn, client} = KindeClientSDK.get_token(conn)
 
+    conn = put_session(conn, :access_token, client.access_token)
+    conn = put_session(conn, :refresh_token, client.refresh_token)
+
     render(conn, "index.html", response: nil)
   end
 
@@ -73,6 +76,9 @@ defmodule DemoElixirPhoenixWeb.PageController do
 
   def log_out(conn, _params) do
     conn = KindeClientSDK.logout(conn)
+
+    conn = delete_session(conn, :access_token)
+    conn = delete_session(conn, :refresh_token)
 
     render(conn, "index.html", response: nil)
   end
