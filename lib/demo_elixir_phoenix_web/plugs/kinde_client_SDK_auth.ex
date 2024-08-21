@@ -7,6 +7,7 @@ defmodule DemoElixirPhoenixWeb.Plugs.KindeClientSDKAuth do
     if KindeClientSDK.authenticated?(conn) do
       conn
     else
+      Logger.warn("Unauthorized access attempt detected.")
       Plug.Conn.halt(conn)
       |> Plug.Conn.put_status(403)
       |> put_view(DemoElixirPhoenixWeb.PageView)
