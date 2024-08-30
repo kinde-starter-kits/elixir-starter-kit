@@ -1,4 +1,4 @@
-# Kinde ELixir SDK Starter Kit
+# Kinde Elixir SDK Starter Kit
 
 Install erlang and elixir.
 
