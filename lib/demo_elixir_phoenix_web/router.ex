@@ -9,15 +9,19 @@ defmodule DemoElixirPhoenixWeb.Router do
     plug(:put_secure_browser_headers)
   end
 
+
+  pipeline :authenticated do
+    plug DemoElixirPhoenixWeb.Plugs.CheckAuth
+  end
+
   pipeline :api do
     plug(:accepts, ["json"])
   end
 
   scope "/", DemoElixirPhoenixWeb do
-    pipe_through(:browser)
+    pipe_through([:browser, :authenticated])
 
     get("/", PageController, :start)
-    get("/log-in", PageController, :index)
     get("/callback", PageController, :callback)
     get("/log-out", PageController, :log_out)
     get("/logout", PageController, :logout)
@@ -29,10 +33,16 @@ defmodule DemoElixirPhoenixWeb.Router do
     get("/user", PageController, :get_user)
     get("/organization", PageController, :get_user_organizations)
     get("/token", PageController, :tokens)
+    get("/helper_methods", PageController, :helper_methods)
+  end
+
+   scope "/", DemoElixirPhoenixWeb do
+    pipe_through(:browser)
+
+    get("/log-in", PageController, :index)
     get("/pkce-reg", PageController, :pkce_reg)
     get("/pkce-callback", PageController, :pkce_callack)
     get("/token-endpoint", PageController, :token_endpoint)
-    get("/helper_methods", PageController, :helper_methods)
   end
 
   # Other scopes may use custom stacks.
