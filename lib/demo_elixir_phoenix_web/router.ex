@@ -17,6 +17,7 @@ defmodule DemoElixirPhoenixWeb.Router do
     pipe_through(:browser)
 
     get("/", PageController, :start)
+    get("/signup", PageController, :register)
     get("/log-in", PageController, :index)
     get("/callback", PageController, :callback)
     get("/log-out", PageController, :log_out)
@@ -33,6 +34,7 @@ defmodule DemoElixirPhoenixWeb.Router do
     get("/pkce-callback", PageController, :pkce_callack)
     get("/token-endpoint", PageController, :token_endpoint)
     get("/helper_methods", PageController, :helper_methods)
+    get("/*path", PageController, :start)
   end
 
   # Other scopes may use custom stacks.
