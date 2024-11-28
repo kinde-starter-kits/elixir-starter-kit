@@ -1,6 +1,6 @@
 defmodule DemoElixirPhoenixWeb.Plugs.CheckAuth do
   import Plug.Conn
-  import Logger
+  require Logger
   alias KindeClientSDK
 
   def init(default), do: default
