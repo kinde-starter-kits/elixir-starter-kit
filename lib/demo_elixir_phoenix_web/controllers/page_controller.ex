@@ -128,8 +128,9 @@ defmodule DemoElixirPhoenixWeb.PageController do
     {conn, client} = KindeClientSDK.get_token(conn)
     res = KindeClientSDK.get_all_data(conn)
 
-    conn = put_session(conn, :access_token, res.access_token)
-    conn = put_session(conn, :refresh_token, res.refresh_token)
+    conn = put_session(conn, :access_token, res && res[:access_token])
+    conn = put_session(conn, :refresh_token, res && res[:refresh_token])
+    
     render(conn, "index.html", response: res)
   end
 
