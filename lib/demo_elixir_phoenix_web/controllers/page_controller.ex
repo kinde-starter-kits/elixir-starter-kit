@@ -28,6 +28,9 @@ defmodule DemoElixirPhoenixWeb.PageController do
 
     {conn, client} = KindeClientSDK.get_token(conn)
 
+    conn = put_session(conn, :access_token, client.access_token)
+    conn = put_session(conn, :refresh_token, client.refresh_token)
+
     render(conn, "index.html", response: nil)
   end
 
@@ -74,6 +77,9 @@ defmodule DemoElixirPhoenixWeb.PageController do
   def log_out(conn, _params) do
     conn = KindeClientSDK.logout(conn)
 
+    conn = delete_session(conn, :access_token)
+    conn = delete_session(conn, :refresh_token)
+
     render(conn, "index.html", response: nil)
   end
 
@@ -87,34 +93,49 @@ defmodule DemoElixirPhoenixWeb.PageController do
   end
 
   def pkce_reg(conn, _) do
-    grant_type = :authorization_code_flow_pkce
+    {conn, client} = KindeClientSDK.get_token(conn)
 
-    {conn, client} =
-      KindeClientSDK.init(
-        conn,
-        Application.get_env(:kinde_sdk, :domain) |> String.replace("\"", ""),
-        Application.get_env(:kinde_sdk, :pkce_callback_url) |> String.replace("\"", ""),
-        Application.get_env(:kinde_sdk, :frontend_client_id) |> String.replace("\"", ""),
-        Application.get_env(:kinde_sdk, :client_secret) |> String.replace("\"", ""),
-        grant_type,
-        Application.get_env(:kinde_sdk, :pkce_logout_url) |> String.replace("\"", "")
-      )
+    case client do
+      %{grant_type: :authorization_code_flow_pkce, auth_status: :authenticated} ->
+        render(conn, "index.html", response: "Already logged in")
+      _ ->
+        grant_type = :authorization_code_flow_pkce
+        {conn, client} =
+          KindeClientSDK.init(
+            conn,
+            Application.get_env(:kinde_sdk, :domain)
+            |> String.replace("\"", ""),
+            Application.get_env(:kinde_sdk, :pkce_callback_url)
+            |> String.replace("\"", ""),
+            Application.get_env(:kinde_sdk, :backend_client_id)
+            |> String.replace("\"", ""),
+            Application.get_env(:kinde_sdk, :client_secret)
+            |> String.replace("\"", ""),
+            grant_type,
+            Application.get_env(:kinde_sdk, :pkce_logout_url)
+            |> String.replace("\"", "")
+          )
 
-    conn = KindeClientSDK.login(conn, client)
+        conn = KindeClientSDK.login(conn, client)
 
-    res = KindeClientSDK.get_all_data(conn)
+        res = KindeClientSDK.get_all_data(conn)
 
-    render(conn, "index.html", response: nil)
+        render(conn, "index.html", response: nil)
+    end
   end
 
   def pkce_callack(conn, _) do
     {conn, client} = KindeClientSDK.get_token(conn)
     res = KindeClientSDK.get_all_data(conn)
+
+    conn = put_session(conn, :access_token, res && res[:access_token])
+    conn = put_session(conn, :refresh_token, res && res[:refresh_token])
+    
     render(conn, "index.html", response: res)
   end
 
   def token_endpoint(conn, _) do
-    {conn, client} = KindeClientSDK.get_token(conn)
+    {conn, client} = KindeClientSDK.get_token(conn) |> IO.inspect(label: "11225544")
     res = KindeClientSDK.get_all_data(conn)
     render(conn, "index.html", response: res)
   end
