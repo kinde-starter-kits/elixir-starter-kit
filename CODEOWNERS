@@ -1,2 +1,8 @@
 * @kinde-starter-kits/giants-kinde
 
+package-lock.json @kinde-starter-kits/sdk-engineers
+**/package-lock.json @kinde-starter-kits/sdk-engineers
+package.json @kinde-starter-kits/sdk-engineers
+**/package.json @kinde-starter-kits/sdk-engineers
+mix.exs @kinde-starter-kits/sdk-engineers
+**/mix.exs @kinde-starter-kits/sdk-engineers
